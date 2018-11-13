@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <title>GW2 API TEST</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background-color: #161618;
+        }
+    
+        #loading {
+            color: #ee4d2e;
+        }
+
+        #loaded {
+            visibility: hidden;
+            color: #5bb91c;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+    
+    
+    <button type="button" id="fetchData">Daten Laden</button>
+    <span id="loading">Not loaded </span>
+    <span id="loaded">Loaded</span>
+
+</body>
+
+    <script>
+        var data;
+        var data_elab;
+
+
+
+    $("#fetchData").click(function (event) {
+
+         $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
+            .done(function (received) {
+                //console.log('Daten empfangen', received);
+                console.log('done');
+                data = received;
+            })
+      });
+
+    $(document).ajaxStop(function () {
+            $("#loading").hide();
+            $("#loaded").toggle(display);
+        });
+
+
+
+    </script>
+
+
+<script>
+/*
+
+https://api.guildwars2.com/v2/commerce/prices       :array(ID)
+
+https://api.guildwars2.com/v2/commerce/prices/ID    :Object
+
+    {
+        "id": 24,
+        "whitelisted": false,
+        "buys":
+        {
+            "quantity": 52924,
+            "unit_price": 170
+        },
+        "sells":
+        {
+            "quantity": 57417,
+            "unit_price": 330
+        }
+}
+*/
+</script>
