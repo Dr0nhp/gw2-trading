@@ -27,29 +27,41 @@
 
 </body>
 
-    <script>
-        var data;
-        var data_elab;
+<script>
+    var data_id;
+    var data_obj;
     
     $("#loaded").hide();
 
-
     $("#fetchData").click(function (event) {
 
-         $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
+        $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
             .done(function (received) {
                 //console.log('Daten empfangen', received);
                 console.log('done');
-                data = received;
+                data_id = received;
             })
-      });
+    });
 
     $(document).ajaxStop(function () {
             $("#loading").hide();
             $("#loaded").toggle();
-        });
+            testfunction(data_id);
+    });
 
-    </script>
+    function testfunction(k){
+        $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
+            .done(function (received){
+            data_obj = received;
+            console.log('Objekte sind da!', received)
+            })
+    }
+
+
+
+
+
+</script>
 
 
 <script>
