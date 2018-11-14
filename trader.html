@@ -30,6 +30,7 @@
 <script>
     var data_id;
     var data_obj;
+    var wait = false;
     
     $("#loaded").hide();
 
@@ -40,27 +41,27 @@
                 //console.log('Daten empfangen', received);
                 console.log('done');
                 data_id = received;
+                objectFetcher(data_id);
             })
     });
 
     $(document).ajaxStop(function () {
             $("#loading").hide();
             $("#loaded").toggle();
-            testfunction(data_id);
+            wait = true;
     });
 
-    function testfunction(k){
-        $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
+    function objectFetcher(k){
+        var i = 0;
+        while wait {
+
+        $.getJSON('https://api.guildwars2.com/v2/commerce/prices'+ data[i])
             .done(function (received){
-            data_obj = received;
-            console.log('Objekte sind da!', received)
+                data_obj = received;
+                console.log('Objekte sind da!', received)
             })
+        }
     }
-
-
-
-
-
 </script>
 
 
