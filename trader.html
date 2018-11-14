@@ -8,20 +8,14 @@
     <style>
         body {
             background-color: #161618;
-        }
-    
+        }    
         #loading {
             color: #ee4d2e;
         }
-
         #loaded {
-            visibility: hidden;
             color: #5bb91c;
         }
-
     </style>
-
-
 </head>
 
 <body>
@@ -36,7 +30,8 @@
     <script>
         var data;
         var data_elab;
-
+    
+    $("#loaded").hide();
 
 
     $("#fetchData").click(function (event) {
@@ -51,10 +46,8 @@
 
     $(document).ajaxStop(function () {
             $("#loading").hide();
-            $("#loaded").toggle(display);
+            $("#loaded").toggle();
         });
-
-
 
     </script>
 
