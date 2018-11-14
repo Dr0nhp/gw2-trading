@@ -3,8 +3,7 @@
 
 <head>
     <title>GW2 API TEST</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
     <style>
         body {
             background-color: #161618;
@@ -20,7 +19,6 @@
 
 <body>
     
-    
     <button type="button" id="fetchData">Daten Laden</button>
     <span id="loading">Not loaded </span>
     <span id="loaded">Loaded</span>
@@ -30,42 +28,49 @@
 <script>
     var data_id;
     var data_obj;
-    var wait = false;
+    var rdy = true;
+    const URL = 'https://api.guildwars2.com/v2/commerce/prices';
+    var URL_mod;
     
     $("#loaded").hide();
 
     $("#fetchData").click(function (event) {
-
-        $.getJSON('https://api.guildwars2.com/v2/commerce/prices')
+        $.getJSON(URL)
             .done(function (received) {
-                //console.log('Daten empfangen', received);
-                console.log('done');
+                console.log('Indizies laden');
                 data_id = received;
-                objectFetcher(data_id);
             })
     });
 
-    $(document).ajaxStop(function () {
+    	$(document).ajaxStop(function () {
             $("#loading").hide();
-            $("#loaded").toggle();
-            wait = true;
+            $("#loaded").show();
+            if (rdy){
+                objectFetcher(data_id);
+            }
+            else {
+                console.log('Ajax Else');
+            }
     });
 
     function objectFetcher(k){
+        console.log("ObjectFetcher Beginn");      
+        rdy = false;
         var i = 0;
-        while (wait) {
-
-        $.getJSON('https://api.guildwars2.com/v2/commerce/prices'+ data[i])
-            .done(function (received){
+        
+        while (i < data_id.length){
+           URL_mod = URL + "/" + data_id[i];
+            
+           $.getJSON(URL_mod)
+            .done(function (received) {
                 data_obj = received;
-                console.log('Objekte sind da!', received)
-            })
-        }
+                console.log('ObjectFetcher daten da');
+            }) 
+
+           i++;
+        };
     }
 </script>
-
-
-
 <script>
 /*
 
